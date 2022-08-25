@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - 'gh-pages'
+      - 'master'
 
 jobs:
   clean_install_on_push:
