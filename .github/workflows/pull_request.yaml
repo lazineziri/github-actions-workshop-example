@@ -4,7 +4,6 @@ on:
   pull_request:
     branches-ignore:
       - 'gh-pages'
-      - 'master'
 
 jobs:
   clean_install_on_pull_request:
