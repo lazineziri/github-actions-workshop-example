@@ -19,7 +19,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
+      - name: Clean install
+        run: npm ci
 
   test_on_tag:
     needs: clean_install_on_tag
@@ -33,7 +34,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm test
+      - name: Install mocha
+        run: npm install mocha -g
+      - name: Run tests
+        run: npm test
 
   publish_on_tag:
     needs: test_on_tag
@@ -47,4 +51,5 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: bash publish.sh
+      - name: Publish
+        run: bash publish.sh
