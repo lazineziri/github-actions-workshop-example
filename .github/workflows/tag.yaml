@@ -1,12 +1,14 @@
-name: Workshop example Pull Request event workflow
+name: Workshop example Tag event workflow
 
 on:
-  pull_request:
-    branches-ignore:
-      - 'gh-pages'
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
 
 jobs:
-  clean_install_on_pull_request:
+  clean_install_on_tag:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,8 +21,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
 
-  test_on_pull_request:
-    needs: clean_install_on_pull_request
+  test_on_tag:
+    needs: clean_install_on_tag
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,3 +34,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm test
+
+  publish_on_tag:
+    needs: test_on_tag
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: bash publish.sh
