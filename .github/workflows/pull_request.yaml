@@ -17,7 +17,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
+      - name: Clean install
+        run: npm ci
 
   test_on_pull_request:
     needs: clean_install_on_pull_request
@@ -31,4 +32,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm test
+      - name: Install mocha
+        run: npm install mocha -g
+      - name: Run tests
+        run: npm test
