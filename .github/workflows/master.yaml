@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  clean_install_on_tag:
+  clean_install_on_master:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,8 +20,8 @@ jobs:
       - name: Clean install
         run: npm ci
 
-  test_on_tag:
-    needs: clean_install_on_tag
+  test_on_master:
+    needs: clean_install_on_master
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,8 +37,8 @@ jobs:
       - name: Run tests
         run: npm test
 
-  publish_on_tag:
-    needs: test_on_tag
+  publish_on_master:
+    needs: test_on_master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
