@@ -4,7 +4,7 @@
   "description": "Simple example repository for Github Actions workshop",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/drilonrecica/github-actions-workshop-example#readme",
   "dependencies": {
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
   }
 }
